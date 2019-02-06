@@ -27,6 +27,7 @@
       sessionStatusEl.innerText = 'success';
     }).catch((err) => {
       sessionStatusEl.innerText = 'failure';
+      console.error(err);
     });
   </script>
 </body>
