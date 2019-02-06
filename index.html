@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="/node_modules/oidc-client/dist/oidc-client.js"></script>
+</head>
+<body>
+  Session Status:
+  <span id="session-status">pending</span>
+
+  <script>
+    const mgr = new Oidc.UserManager({
+      authority: 'http://localhost:15000/oidc',
+      client_id: 'js.tokenmanager',
+      redirect_uri: 'http://localhost:15000',
+      silent_redirect_uri: 'http://localhost:15000/silent-renew.html',
+      response_type: 'id_token token',
+      scope: 'openid'
+    });
+
+    const sessionStatusEl = document.getElementById('session-status');
+
+    mgr.querySessionStatus().then((status) => {
+      sessionStatusEl.innerText = 'success';
+    }).catch((err) => {
+      sessionStatusEl.innerText = 'failure';
+    });
+  </script>
+</body>
+</html>
